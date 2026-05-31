@@ -1,5 +1,3 @@
-
-
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:006d77,100:0a9396&height=180&section=header&animation=fadeIn" alt="Header Wave" />
 
 <div align="center">
@@ -43,11 +41,8 @@
 ## 📊 GitHub Stats
 
 <div align="center">
-
-  <!-- Cards gerados por GitHub Actions e salvos no próprio repo — nunca quebram -->
   <img height="180em" src="https://raw.githubusercontent.com/alexanderbs3/alexanderbs3/main/profile/stats.svg" alt="GitHub Stats" />
   <img height="180em" src="https://raw.githubusercontent.com/alexanderbs3/alexanderbs3/main/profile/langs.svg" alt="Top Languages" />
-
 </div>
 
 <div align="center">
@@ -85,4 +80,3 @@
 ---
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0a9396,100:006d77&height=100&section=footer&animation=fadeIn" alt="Footer Wave" />
-
