@@ -13,6 +13,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Create profile directory
         run: mkdir -p profile
@@ -21,20 +23,17 @@ jobs:
         run: |
           curl -s "https://github-readme-stats.vercel.app/api?username=alexanderbs3&show_icons=true&hide_border=true&bg_color=0d1117&title_color=0a9396&icon_color=f7b731&text_color=c9d1d9&include_all_commits=true&count_private=true&rank_icon=github" \
             -o profile/stats.svg
-          echo "Stats card gerado:"
-          head -3 profile/stats.svg
 
       - name: Generate Top Languages Card
         run: |
           curl -s "https://github-readme-stats.vercel.app/api/top-langs/?username=alexanderbs3&layout=compact&hide_border=true&bg_color=0d1117&title_color=0a9396&text_color=c9d1d9&langs_count=8" \
             -o profile/langs.svg
-          echo "Langs card gerado:"
-          head -3 profile/langs.svg
 
       - name: Commit cards
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
           git add profile/stats.svg profile/langs.svg
           git diff --staged --quiet || git commit -m "chore: update stats cards [skip ci]"
           git push
