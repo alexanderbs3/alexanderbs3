@@ -2,55 +2,36 @@ name: Update GitHub Stats Cards
 
 on:
   schedule:
-    - cron: "0 3 * * *"   # Roda todo dia às 03h UTC
-  workflow_dispatch:        # Permite rodar manualmente também
+    - cron: "0 0 * * *"
+  workflow_dispatch:
 
 jobs:
-  update-stats:
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
+      - name: Create profile directory
+        run: mkdir -p profile
 
       - name: Generate Stats Card
-        uses: readme-tools/github-readme-stats-action@v1
-        with:
-          card: stats
-          options: >
-            username=alexanderbs3
-            &show_icons=true
-            &hide_border=true
-            &bg_color=0d1117
-            &title_color=0a9396
-            &icon_color=f7b731
-            &text_color=c9d1d9
-            &include_all_commits=true
-            &count_private=true
-            &rank_icon=github
-          path: profile/stats.svg
-        env:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -s "https://github-readme-stats.vercel.app/api?username=alexanderbs3&show_icons=true&hide_border=true&bg_color=0d1117&title_color=0a9396&icon_color=f7b731&text_color=c9d1d9&include_all_commits=true&count_private=true&rank_icon=github" \
+            -o profile/stats.svg
+          echo "Stats card gerado:"
+          head -3 profile/stats.svg
 
       - name: Generate Top Languages Card
-        uses: readme-tools/github-readme-stats-action@v1
-        with:
-          card: top-langs
-          options: >
-            username=alexanderbs3
-            &layout=compact
-            &hide_border=true
-            &bg_color=0d1117
-            &title_color=0a9396
-            &text_color=c9d1d9
-            &langs_count=8
-          path: profile/langs.svg
-        env:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -s "https://github-readme-stats.vercel.app/api/top-langs/?username=alexanderbs3&layout=compact&hide_border=true&bg_color=0d1117&title_color=0a9396&text_color=c9d1d9&langs_count=8" \
+            -o profile/langs.svg
+          echo "Langs card gerado:"
+          head -3 profile/langs.svg
 
-      - name: Commit updated cards
+      - name: Commit cards
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
