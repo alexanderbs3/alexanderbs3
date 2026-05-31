@@ -14,15 +14,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
-
-      - name: Create profile directory
-        run: mkdir -p profile
 
       - name: Generate SVG cards via GitHub API
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          mkdir -p profile
           python3 << 'PYEOF'
           import urllib.request, json, os
 
@@ -32,12 +31,10 @@ jobs:
               "Accept": "application/vnd.github+json"
           }
 
-          # Buscar dados do usuário
           req = urllib.request.Request("https://api.github.com/users/alexanderbs3", headers=headers)
           with urllib.request.urlopen(req) as r:
               user = json.loads(r.read())
 
-          # Buscar repos para contar stars e linguagens
           req = urllib.request.Request("https://api.github.com/users/alexanderbs3/repos?per_page=100", headers=headers)
           with urllib.request.urlopen(req) as r:
               repos = json.loads(r.read())
@@ -50,7 +47,6 @@ jobs:
 
           top_langs = sorted(langs.items(), key=lambda x: x[1], reverse=True)[:6]
 
-          # Cores por linguagem
           lang_colors = {
               "Java": "#b07219", "JavaScript": "#f1e05a", "TypeScript": "#3178c6",
               "Python": "#3572A5", "Go": "#00ADD8", "HTML": "#e34c26",
@@ -59,35 +55,22 @@ jobs:
               "Rust": "#dea584", "PHP": "#4F5D95", "Swift": "#F05138",
           }
 
-          # ── Stats SVG ──────────────────────────────────────────────
-          stats_svg = f'''<svg width="495" height="195" viewBox="0 0 495 195"
-            xmlns="http://www.w3.org/2000/svg" role="img">
-            <style>
-              .title {{ fill: #0a9396; font: 600 17px "Segoe UI", Sans-Serif; }}
-              .stat  {{ fill: #c9d1d9; font: 400 13px "Segoe UI", Sans-Serif; }}
-              .value {{ fill: #ffffff; font: 700 14px "Segoe UI", Sans-Serif; }}
-              .icon  {{ fill: #f7b731; }}
-            </style>
+          stats_svg = f'''<svg width="495" height="195" viewBox="0 0 495 195" xmlns="http://www.w3.org/2000/svg">
             <rect width="495" height="195" rx="10" fill="#0d1117"/>
-            <text x="25" y="35" class="title">alexanderbs3&#39;s GitHub Stats</text>
-            <!-- Stars -->
-            <text x="25"  y="75"  class="stat">⭐ Total Stars Earned:</text>
-            <text x="300" y="75"  class="value">{total_stars}</text>
-            <!-- Repos -->
-            <text x="25"  y="105" class="stat">📦 Public Repos:</text>
-            <text x="300" y="105" class="value">{user.get("public_repos", 0)}</text>
-            <!-- Followers -->
-            <text x="25"  y="135" class="stat">👥 Followers:</text>
-            <text x="300" y="135" class="value">{user.get("followers", 0)}</text>
-            <!-- Following -->
-            <text x="25"  y="165" class="stat">➡️ Following:</text>
-            <text x="300" y="165" class="value">{user.get("following", 0)}</text>
+            <text x="25" y="35" fill="#0a9396" font-size="17" font-weight="600" font-family="Segoe UI,Sans-Serif">alexanderbs3&#39;s GitHub Stats</text>
+            <text x="25"  y="75"  fill="#c9d1d9" font-size="13" font-family="Segoe UI,Sans-Serif">&#11088; Total Stars Earned:</text>
+            <text x="300" y="75"  fill="#ffffff" font-size="14" font-weight="700" font-family="Segoe UI,Sans-Serif">{total_stars}</text>
+            <text x="25"  y="105" fill="#c9d1d9" font-size="13" font-family="Segoe UI,Sans-Serif">&#128230; Public Repos:</text>
+            <text x="300" y="105" fill="#ffffff" font-size="14" font-weight="700" font-family="Segoe UI,Sans-Serif">{user.get("public_repos", 0)}</text>
+            <text x="25"  y="135" fill="#c9d1d9" font-size="13" font-family="Segoe UI,Sans-Serif">&#128101; Followers:</text>
+            <text x="300" y="135" fill="#ffffff" font-size="14" font-weight="700" font-family="Segoe UI,Sans-Serif">{user.get("followers", 0)}</text>
+            <text x="25"  y="165" fill="#c9d1d9" font-size="13" font-family="Segoe UI,Sans-Serif">&#128250; Following:</text>
+            <text x="300" y="165" fill="#ffffff" font-size="14" font-weight="700" font-family="Segoe UI,Sans-Serif">{user.get("following", 0)}</text>
           </svg>'''
 
           with open("profile/stats.svg", "w") as f:
               f.write(stats_svg)
 
-          # ── Langs SVG ──────────────────────────────────────────────
           total = sum(c for _, c in top_langs) or 1
           bars = ""
           labels = ""
@@ -102,17 +85,15 @@ jobs:
               lx = 25 + col * 220
               ly = 95 + row * 25
               labels += f'<circle cx="{lx}" cy="{ly-4}" r="5" fill="{color}"/>'
-              labels += f'<text x="{lx+12}" y="{ly}" fill="#c9d1d9" font-size="12" font-family="Segoe UI,Sans-Serif">'
-              labels += f'{lang} {pct*100:.1f}%</text>\n'
+              labels += f'<text x="{lx+12}" y="{ly}" fill="#c9d1d9" font-size="12" font-family="Segoe UI,Sans-Serif">{lang} {pct*100:.1f}%</text>\n'
+              x += w
 
           rows = (len(top_langs) + 1) // 2
           height = 85 + rows * 25 + 20
 
-          langs_svg = f'''<svg width="495" height="{height}" viewBox="0 0 495 {height}"
-            xmlns="http://www.w3.org/2000/svg" role="img">
+          langs_svg = f'''<svg width="495" height="{height}" viewBox="0 0 495 {height}" xmlns="http://www.w3.org/2000/svg">
             <rect width="495" height="{height}" rx="10" fill="#0d1117"/>
-            <text x="25" y="35" fill="#0a9396" font-size="17" font-weight="600"
-              font-family="Segoe UI,Sans-Serif">Most Used Languages</text>
+            <text x="25" y="35" fill="#0a9396" font-size="17" font-weight="600" font-family="Segoe UI,Sans-Serif">Most Used Languages</text>
             <g transform="translate(25,55)">{bars}</g>
             {labels}
           </svg>'''
@@ -120,17 +101,14 @@ jobs:
           with open("profile/langs.svg", "w") as f:
               f.write(langs_svg)
 
-          print("SVGs gerados com sucesso!")
-          print(f"Stars: {total_stars}, Repos: {user.get('public_repos')}, Followers: {user.get('followers')}")
-          print(f"Langs: {[l for l,_ in top_langs]}")
+          print("SVGs gerados!")
           PYEOF
 
-      - name: Commit cards
+      - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add profile/stats.svg profile/langs.svg
-          git diff --staged --quiet && echo "Nada mudou" && exit 0
+          git add -f profile/stats.svg profile/langs.svg
+          git diff --staged --quiet && echo "Sem mudanças" && exit 0
           git commit -m "chore: update stats cards [skip ci]"
-          git pull --rebase origin main
-          git push
+          git push --force-with-lease origin main
