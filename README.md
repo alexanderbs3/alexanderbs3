@@ -1,5 +1,5 @@
 
-=======
+
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:006d77,100:0a9396&height=180&section=header&animation=fadeIn" alt="Header Wave" />
 
 <div align="center">
