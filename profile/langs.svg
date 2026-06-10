@@ -1,18 +1,18 @@
 <svg width="495" height="180" viewBox="0 0 495 180" xmlns="http://www.w3.org/2000/svg">
   <rect width="495" height="180" rx="10" fill="#0d1117"/>
   <text x="25" y="35" fill="#0a9396" font-size="17" font-weight="600" font-family="Segoe UI,Sans-Serif">Most Used Languages</text>
-  <g transform="translate(25,55)"><rect x="0.0" y="0" width="356.0" height="8" fill="#b07219" rx="3"/>
-<rect x="356.0" y="0" width="19.8" height="8" fill="#f1e05a" rx="3"/>
-<rect x="375.8" y="0" width="19.8" height="8" fill="#3572A5" rx="3"/>
-<rect x="395.6" y="0" width="19.8" height="8" fill="#3178c6" rx="3"/>
-<rect x="415.3" y="0" width="19.8" height="8" fill="#e34c26" rx="3"/>
-<rect x="435.1" y="0" width="9.9" height="8" fill="#8b949e" rx="3"/>
+  <g transform="translate(25,55)"><rect x="0.0" y="0" width="348.3" height="8" fill="#b07219" rx="3"/>
+<rect x="348.3" y="0" width="29.0" height="8" fill="#3178c6" rx="3"/>
+<rect x="377.3" y="0" width="19.3" height="8" fill="#f1e05a" rx="3"/>
+<rect x="396.6" y="0" width="19.3" height="8" fill="#3572A5" rx="3"/>
+<rect x="416.0" y="0" width="19.3" height="8" fill="#e34c26" rx="3"/>
+<rect x="435.3" y="0" width="9.7" height="8" fill="#8b949e" rx="3"/>
 </g>
-  <circle cx="25" cy="91" r="5" fill="#b07219"/><text x="37" y="95" fill="#c9d1d9" font-size="12" font-family="Segoe UI,Sans-Serif">Java 80.0%</text>
-<circle cx="245" cy="91" r="5" fill="#f1e05a"/><text x="257" y="95" fill="#c9d1d9" font-size="12" font-family="Segoe UI,Sans-Serif">JavaScript 4.4%</text>
-<circle cx="25" cy="116" r="5" fill="#3572A5"/><text x="37" y="120" fill="#c9d1d9" font-size="12" font-family="Segoe UI,Sans-Serif">Python 4.4%</text>
-<circle cx="245" cy="116" r="5" fill="#3178c6"/><text x="257" y="120" fill="#c9d1d9" font-size="12" font-family="Segoe UI,Sans-Serif">TypeScript 4.4%</text>
-<circle cx="25" cy="141" r="5" fill="#e34c26"/><text x="37" y="145" fill="#c9d1d9" font-size="12" font-family="Segoe UI,Sans-Serif">HTML 4.4%</text>
+  <circle cx="25" cy="91" r="5" fill="#b07219"/><text x="37" y="95" fill="#c9d1d9" font-size="12" font-family="Segoe UI,Sans-Serif">Java 78.3%</text>
+<circle cx="245" cy="91" r="5" fill="#3178c6"/><text x="257" y="95" fill="#c9d1d9" font-size="12" font-family="Segoe UI,Sans-Serif">TypeScript 6.5%</text>
+<circle cx="25" cy="116" r="5" fill="#f1e05a"/><text x="37" y="120" fill="#c9d1d9" font-size="12" font-family="Segoe UI,Sans-Serif">JavaScript 4.3%</text>
+<circle cx="245" cy="116" r="5" fill="#3572A5"/><text x="257" y="120" fill="#c9d1d9" font-size="12" font-family="Segoe UI,Sans-Serif">Python 4.3%</text>
+<circle cx="25" cy="141" r="5" fill="#e34c26"/><text x="37" y="145" fill="#c9d1d9" font-size="12" font-family="Segoe UI,Sans-Serif">HTML 4.3%</text>
 <circle cx="245" cy="141" r="5" fill="#8b949e"/><text x="257" y="145" fill="#c9d1d9" font-size="12" font-family="Segoe UI,Sans-Serif">C# 2.2%</text>
 
 </svg>
